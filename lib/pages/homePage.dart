@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/pages/aboutPage.dart';
 import 'package:newapp/pages/searchPage.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,15 +25,21 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
         padding: const EdgeInsets.all(25.0),
         child: ListView(
-          children: const [
-            Text(
+          children: [
+            const Text(
               "N E W S A P P",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
             ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text("About"),
+            const Divider(),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const AboutPage()));
+              },
+              child: const ListTile(
+                leading: Icon(Icons.info),
+                title: Text("About"),
+              ),
             )
           ],
         ),
