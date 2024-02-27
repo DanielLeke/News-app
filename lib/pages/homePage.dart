@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/pages/aboutPage.dart';
 import 'package:newapp/pages/searchPage.dart';
+import 'package:newapp/pages/httpHelper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final String hintText = "Search";
+  final Future<List<Map>> _futureHeadlines = Articles().getHeadlines();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       )),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -75,6 +77,37 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+          ),
+          FutureBuilder(
+            future: _futureHeadlines,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                Center(
+                  child: Text(
+                    "An error occurred ${snapshot.error}",
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                List<Map>? articles = snapshot.data;
+
+                return ListView.builder(
+                  itemCount: articles!.length,
+                  itemBuilder: (context, index) {
+                    Map thisArticle = articles[index];
+
+                    return ListTile(
+                      leading: const Icon(Icons.article),
+                      title: Text(thisArticle['title'] ?? 'No Title'),
+                      subtitle: Text(thisArticle['description'] ??
+                          'No description avialable'),
+                    );
+                  },
+                );
+              }
+              return const CircularProgressIndicator();
+            },
           )
         ],
       ),
