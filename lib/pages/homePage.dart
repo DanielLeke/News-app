@@ -55,27 +55,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const SearchPage()));
               },
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: Colors.white),
-                child: Row(
-                  children: [
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Icon(Icons.search),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      hintText,
-                      style: const TextStyle(color: Colors.grey),
-                    )
-                  ],
-                ),
-              ),
+              child: SearchBar(hintText: hintText),
             ),
           ),
           FutureBuilder(
@@ -108,6 +88,40 @@ class _HomePageState extends State<HomePage> {
               }
               return const Center(child: CircularProgressIndicator());
             },
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+    required this.hintText,
+  });
+
+  final String hintText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          color: Colors.white),
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 5,
+          ),
+          const Icon(Icons.search),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            hintText,
+            style: const TextStyle(color: Colors.grey),
           )
         ],
       ),
