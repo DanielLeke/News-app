@@ -6,7 +6,7 @@ class Articles {
     List<Map> headlines = [];
 
     http.Response response = await http.get(Uri.parse(
-        "https://serpapi.com/search?engine=google_news&q='Trending+Stories'&gl=ng"));
+        "https://newsapi.org/v2/top-headlines?country=ng&apiKey=b40c8ff754314508a61f37a86c9e13f2"));
 
     if (response.statusCode == 200) {
       String jsonString = response.body;
@@ -19,9 +19,10 @@ class Articles {
 
   Future<List<Map>> getSpecificArticles(String searchItem) async {
     List<Map> specificArticles = [];
+    DateTime date = DateTime.now();
 
     http.Response response = await http.get(Uri.parse(
-        "https://serpapi.com/search?engine=google_news&q='$searchItem'&gl=ng"));
+        "https://newsapi.org/v2/everything?q=$searchItem&from=$date&sortBy=popularity&apiKey=b40c8ff754314508a61f37a86c9e13f2"));
 
     if (response.statusCode == 200) {
       String jsonString = response.body;
