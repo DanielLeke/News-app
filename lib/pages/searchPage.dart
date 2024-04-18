@@ -25,7 +25,7 @@ class _SearchPageState extends State<SearchPage> {
               hintText: "Search",
               hintStyle: TextStyle(
                 color: Colors.grey[400],
-                fontSize: 12,
+                fontSize: 16,
               ),
               border: InputBorder.none
             ),

@@ -78,12 +78,14 @@ class FutureHeadlines extends StatelessWidget {
       itemBuilder: (context, index) {
         return Column(
           children: [
-            ListTile(
-              title: Text(
-                headlines[index]['title'].toString(),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+            GestureDetector(
+              child: ListTile(
+                title: Text(
+                  headlines[index]['title'].toString(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(headlines[index]['author'].toString()),
               ),
-              subtitle: Text(headlines[index]['author'].toString()),
             ),
             const Divider(
               indent: 30.0,
@@ -106,24 +108,33 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5), color: Colors.white),
-      child: Row(
-        children: [
-          const SizedBox(
-            width: 5,
-          ),
-          const Icon(Icons.search),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            hintText,
-            style: const TextStyle(color: Colors.grey),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SearchPage(),
+            ));
+      },
+      child: Container(
+        height: 48,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5), color: Colors.white),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 5,
+            ),
+            const Icon(Icons.search),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              hintText,
+              style: const TextStyle(color: Colors.grey),
+            )
+          ],
+        ),
       ),
     );
   }
