@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:newapp/pages/aboutPage.dart';
 import 'package:newapp/pages/searchPage.dart';
@@ -12,87 +14,84 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final String hintText = "Search";
-  final Future<List<Map>> _futureHeadlines = Articles().getHeadlines();
+  List<dynamic> headlines = [];
+
+  Future<void> _fetchData() async {
+    final data = await getAndParseHeadlines();
+    try {
+      setState(() {
+        headlines = data;
+      });
+    } catch (e) {
+      print("Error fetching data: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text("Headlines",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
-        backgroundColor: Colors.blue[200],
-      ),
-      drawer: Drawer(
-          child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: ListView(
-          children: [
-            const Text(
-              "N E W S A P P",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-            ),
-            const Divider(),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const AboutPage()));
-              },
-              child: const ListTile(
-                leading: Icon(Icons.info),
-                title: Text("About"),
-              ),
-            )
-          ],
+        title: const Center(
+          child: Text("Headlines",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
         ),
-      )),
+      ),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SearchPage()));
-              },
-              child: SearchBar(hintText: hintText),
+            child: SearchBar(
+              hintText: hintText,
             ),
           ),
-          FutureBuilder(
-            future: _futureHeadlines,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                Center(
-                  child: Text(
-                    "An error occurred ${snapshot.error}",
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                List<Map>? articles = snapshot.data;
-
-                return ListView.builder(
-                  itemCount: articles!.length,
-                  itemBuilder: (context, index) {
-                    Map thisArticle = articles[index];
-
-                    return ListTile(
-                      leading: const Icon(Icons.article),
-                      title: Text(thisArticle['title'] ?? 'No Title'),
-                      subtitle: Text(thisArticle['description'] ??
-                          'No description avialable'),
-                    );
-                  },
-                );
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          )
+          const SizedBox(
+            height: 20,
+          ),
+          Container(child: FutureHeadlines(headlines: headlines)),
         ],
       ),
+    );
+  }
+}
+
+class FutureHeadlines extends StatelessWidget {
+  const FutureHeadlines({
+    super.key,
+    required this.headlines,
+  });
+
+  final List headlines;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: headlines.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            ListTile(
+              title: Text(
+                headlines[index]['title'].toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(headlines[index]['author'].toString()),
+            ),
+            const Divider(
+              indent: 30.0,
+              endIndent: 30.0,
+            )
+          ],
+        );
+      },
     );
   }
 }
@@ -110,7 +109,7 @@ class SearchBar extends StatelessWidget {
     return Container(
       height: 48,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2), color: Colors.white),
+          borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Row(
         children: [
           const SizedBox(
