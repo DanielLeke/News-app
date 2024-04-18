@@ -86,7 +86,9 @@ class _HomePageState extends State<HomePage> {
                   },
                 );
               }
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             },
           )
         ],
@@ -108,8 +110,7 @@ class SearchBar extends StatelessWidget {
     return Container(
       height: 48,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2),
-          color: Colors.white),
+          borderRadius: BorderRadius.circular(2), color: Colors.white),
       child: Row(
         children: [
           const SizedBox(
