@@ -15,13 +15,9 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white
-          ),
-          child: TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
+        title: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
               hintText: "Search",
               hintStyle: TextStyle(
                 color: Colors.grey[400],
@@ -29,8 +25,13 @@ class _SearchPageState extends State<SearchPage> {
               ),
               border: InputBorder.none
             ),
-          ),
         ),
+        actions: [
+          IconButton(
+            onPressed: (){}, 
+            icon: const Icon(Icons.send)
+          )
+        ],
       ),
     );
   }
