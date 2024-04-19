@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:newapp/pages/aboutPage.dart';
 import 'package:newapp/pages/searchPage.dart';
 import 'package:newapp/pages/httpHelper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   List<dynamic> headlines = [];
 
   Future<void> _fetchData() async {
-    final data = await getAndParseHeadlines();
+    final data = await getAndParseNigeriaHeadlines();
     try {
       setState(() {
         headlines = data;
@@ -54,15 +56,15 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 20,
           ),
-          Container(child: FutureHeadlines(headlines: headlines)),
+          Container(child: FutureNigeriaHeadlines(headlines: headlines)),
         ],
       ),
     );
   }
 }
 
-class FutureHeadlines extends StatelessWidget {
-  const FutureHeadlines({
+class FutureNigeriaHeadlines extends StatelessWidget {
+  const FutureNigeriaHeadlines({
     super.key,
     required this.headlines,
   });
@@ -79,6 +81,9 @@ class FutureHeadlines extends StatelessWidget {
         return Column(
           children: [
             GestureDetector(
+              onTap: () async {
+                await launchUrl(Uri.parse(headlines[index]['url']));
+              },
               child: ListTile(
                 title: Text(
                   headlines[index]['title'].toString(),
