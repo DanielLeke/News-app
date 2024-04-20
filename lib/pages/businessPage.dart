@@ -41,36 +41,37 @@ class _BusinessPageState extends State<BusinessPage> {
         ),
       ),
       body: ListView.builder(
-      itemCount: _businessArticles.length,
-      itemBuilder: (context, index) {
-        if (_businessArticles.isEmpty) {
-          return const Center(
-            child: Text("No information available"),
-          );
-        } else {
-          return Column(
-          children: [
-            GestureDetector(
-              onTap: () async {
-                await launchUrl(Uri.parse(_businessArticles[index]['url']));
-              },
-              child: ListTile(
-                title: Text(
-                  _businessArticles[index]['title'].toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+        itemCount: _businessArticles.length,
+        itemBuilder: (context, index) {
+          if (_businessArticles.isEmpty) {
+            return const Center(
+              child: Text("No information available"),
+            );
+          } else {
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    await launchUrl(Uri.parse(_businessArticles[index]['url']));
+                  },
+                  child: ListTile(
+                    title: Text(
+                      _businessArticles[index]['title'].toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle:
+                        Text(_businessArticles[index]['author'].toString()),
+                    ),
                 ),
-                subtitle: Text(_businessArticles[index]['author'].toString()),
-              ),
-            ),
-            const Divider(
-              indent: 30.0,
-              endIndent: 30.0,
-            )
-          ],
-        );
-        }
-      },
-    ),
+                const Divider(
+                  indent: 30.0,
+                  endIndent: 30.0,
+                )
+              ],
+            );
+          }
+        },
+      ),
     );
   }
 }

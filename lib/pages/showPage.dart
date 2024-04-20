@@ -44,6 +44,7 @@ class _ShowPageState extends State<ShowPage> {
         ),
       ),
       drawer: Drawer(
+        backgroundColor: Colors.white,
         child: ListView(
           children: [
             const Center(
@@ -60,7 +61,7 @@ class _ShowPageState extends State<ShowPage> {
               },
               leading: const Icon(Icons.info_outline),
               title: const Text("About"),
-            )
+            ),
           ],
         ),
       ),
