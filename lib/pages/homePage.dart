@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:newapp/pages/aboutPage.dart';
+import 'package:newapp/pages/businessPage.dart';
 import 'package:newapp/pages/searchPage.dart';
 import 'package:newapp/pages/sportsPage.dart';
 import 'package:newapp/utilities/httpHelper.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> body = const [
     ShowPage(),
     SportsPage(),
+    BusinessPage(),
   ];
 
   @override
