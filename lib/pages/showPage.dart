@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/pages/aboutPage.dart';
 import 'package:newapp/utilities/httpHelper.dart';
 import 'package:newapp/pages/searchPage.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,9 +37,31 @@ class _ShowPageState extends State<ShowPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Center(
+        title: const Padding(
+          padding: EdgeInsets.only(left: 35.0),
           child: Text("Headlines",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            const Center(
+              child: Text("N E W S A P P",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutPage(),
+                    ));
+              },
+              leading: const Icon(Icons.info_outline),
+              title: const Text("About"),
+            )
+          ],
         ),
       ),
       body: ListView(
