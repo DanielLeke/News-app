@@ -12,7 +12,7 @@ class SportsPage extends StatefulWidget {
 class _SportsPageState extends State<SportsPage> {
   List<dynamic> _sportsArticles = [];
   Future<void> _fetchData() async {
-    final data = await searchForStuff("Football and sports news");
+    final data = await searchForStuff("Soccer, football and sports news");
     try {
       setState(() {
         _sportsArticles = data;
