@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newapp/pages/httpHelper.dart';
+import 'package:newapp/utilities/httpHelper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SearchPage extends StatefulWidget {
