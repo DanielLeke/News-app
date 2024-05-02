@@ -1,0 +1,1 @@
+ /Users/Mo/AndroidStudioProjects/News-app/.dart_tool/flutter_build/f3c43653c25e808f15b647867f7cb7e6/native_assets.yaml: 

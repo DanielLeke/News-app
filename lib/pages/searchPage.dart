@@ -73,25 +73,30 @@ class Search extends StatelessWidget {
           );
         } else {
           return Column(
-          children: [
-            GestureDetector(
-              onTap: () async {
-                await launchUrl(Uri.parse(articles[index]['url']));
-              },
-              child: ListTile(
-                title: Text(
-                  articles[index]['title'].toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  await launchUrl(Uri.parse(articles[index]['url']));
+                },
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Image(
+                      image: AssetImage(articles[index]['urlToImage'].toString()),
+                    ),
+                  ),
+                  title: Text(
+                    articles[index]['title'].toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(articles[index]['author'].toString()),
                 ),
-                subtitle: Text(articles[index]['author'].toString()),
               ),
-            ),
-            const Divider(
-              indent: 30.0,
-              endIndent: 30.0,
-            )
-          ],
-        );
+              const Divider(
+                indent: 30.0,
+                endIndent: 30.0,
+              )
+            ],
+          );
         }
       },
     );

@@ -8,13 +8,19 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
-          padding: EdgeInsets.only(left: 50.0),
-          child: Text("Credits",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+          padding: EdgeInsets.only(left: 30.0),
+          child: Text(
+            "Credits",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+          ),
         ),
       ),
-      body: const Text(
-        " Developed by Daniel Adeleke: danieladeleke05@gmail.com and DanielLeke on GitHub. Thanks to Folarin Fadeyi: Legendary-Folah on GitHub.",
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: const Text(
+          "Developed by Daniel Adeleke: danieladeleke05@gmail.com and DanielLeke on GitHub. \n"
+          "Thanks to Folarin Fadeyi: Legendary-Folah on GitHub.",
+        ),
       ),
     );
   }
